@@ -25,24 +25,32 @@ const HeaderLeft = () => {
               </a>
             </li>
           ))}
-         
         </ul>
       </div>
 
       <div className="fixed left-0 right-0 top-0 z-10 flex justify-evenly bg-teal-600 p-5 text-white md:hidden">
-        <a href="#home" className="flex flex-col items-center justify-center">
+        <a href="#Home" className="flex flex-col items-center justify-center">
           <BiHome className="text-2xl" />
           <span className="text-xs pt-[7px]">Home</span>
         </a>
-        <a href="#home" className="flex flex-col items-center justify-center">
+        <a
+          href="#Experience"
+          className="flex flex-col items-center justify-center"
+        >
           <BiBriefcase className="text-2xl" />
           <span className="text-xs pt-[7px]">Experience</span>
         </a>
-        <a href="#home" className="flex flex-col items-center justify-center">
+        <a
+          href="#Projects"
+          className="flex flex-col items-center justify-center"
+        >
           <BiCode className="text-2xl" />
-          <span className="text-xs pt-[7px]">Project</span>
+          <span className="text-xs pt-[7px]">Projects</span>
         </a>
-        <a href="#home" className="flex flex-col items-center justify-center">
+        <a
+          href="#Contact"
+          className="flex flex-col items-center justify-center"
+        >
           <BiMailSend className="text-2xl" />
           <span className="text-xs pt-[7px]">Contact</span>
         </a>

@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Mail, Phone, MapPin, Home, Flag } from "lucide-react";
+import { PortfolioContext } from "../context/ContextPortfolio";
 
 const Contact = ({ data }) => {
+  const { sendMail, sendEmailLoading } = useContext(PortfolioContext);
+
   const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
+    senderName: "",
     email: "",
-    message: "",
+    htmltext: "",
   });
 
   const handleChange = (e) => {
@@ -15,8 +17,25 @@ const Contact = ({ data }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    sendMail({
+      ...formData,
+      to: data.contact.email ? data.contact.email : "",
+      name: `${data.firstname}  ${data.lastname}`,
+    });
+    setFormData({
+      senderName: "",
+      email: "",
+      htmltext: "",
+    });
   };
+
+  if (sendEmailLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-12 h-12 border-4 border-teal-500 border-dashed rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -29,36 +48,19 @@ const Contact = ({ data }) => {
             Contact Us
           </h2>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
               <div>
                 <label
-                  htmlFor="name"
+                  htmlFor="senderName"
                   className="block text-sm font-medium text-teal-700"
                 >
-                  First Name
+                  Name
                 </label>
                 <input
                   type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full p-4 mt-2 border border-teal-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="surname"
-                  className="block text-sm font-medium text-teal-700"
-                >
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  id="surname"
-                  name="surname"
-                  value={formData.surname}
+                  id="senderName"
+                  name="senderName"
+                  value={formData.senderName}
                   onChange={handleChange}
                   required
                   className="w-full p-4 mt-2 border border-teal-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
@@ -86,15 +88,15 @@ const Contact = ({ data }) => {
 
             <div>
               <label
-                htmlFor="message"
+                htmlFor="htmltext"
                 className="block text-sm font-medium text-teal-700"
               >
                 Message
               </label>
               <textarea
-                id="message"
-                name="message"
-                value={formData.message}
+                id="htmltext"
+                name="htmltext"
+                value={formData.htmltext}
                 onChange={handleChange}
                 required
                 className="w-full p-4 mt-2 border border-teal-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
@@ -116,46 +118,56 @@ const Contact = ({ data }) => {
             Our Contact Information
           </h3>
           <ul className="space-y-6">
-            <li className="flex items-center gap-4 text-teal-700">
-              {data.contact.email ? (
-                <Mail className="w-6 h-6 text-teal-500" />
-              ) : (
-                ""
-              )}
-              <span>{data.contact.email}</span>
-            </li>
-            <li className="flex items-center gap-4 text-teal-700">
-              {data.contact.phone ? (
-                <Phone className="w-6 h-6 text-teal-500" />
-              ) : (
-                ""
-              )}
-              <span>{data.contact.phone}</span>
-            </li>
-            <li className="flex items-center gap-4 text-teal-700">
-              {data.contact.address ? (
-                <MapPin className="w-6 h-6 text-teal-500" />
-              ) : (
-                ""
-              )}
-              <span>{data.contact.address}</span>
-            </li>
-            <li className="flex items-center gap-4 text-teal-700">
-              {data.contact.city ? (
-                <Home className="w-6 h-6 text-teal-500" />
-              ) : (
-                ""
-              )}{" "}
-              <span>{data.contact.city}</span>
-            </li>
-            <li className="flex items-center gap-4 text-teal-700">
-              {data.contact.country ? (
-                <Flag className="w-6 h-6 text-teal-500" />
-              ) : (
-                ""
-              )}
-              <span>{data.contact.country}</span>
-            </li>
+            {data.contact.email && (
+              <li className="flex items-center gap-4 text-teal-700">
+                {data.contact.email ? (
+                  <Mail className="w-6 h-6 text-teal-500" />
+                ) : (
+                  ""
+                )}
+                <span>{data.contact.email}</span>
+              </li>
+            )}
+            {data.contact.phone && (
+              <li className="flex items-center gap-4 text-teal-700">
+                {data.contact.phone ? (
+                  <Phone className="w-6 h-6 text-teal-500" />
+                ) : (
+                  ""
+                )}
+                <span>{data.contact.phone}</span>
+              </li>
+            )}
+            {data.contact.address && (
+              <li className="flex items-center gap-4 text-teal-700">
+                {data.contact.address ? (
+                  <MapPin className="w-6 h-6 text-teal-500" />
+                ) : (
+                  ""
+                )}
+                <span>{data.contact.address}</span>
+              </li>
+            )}
+            {data.contact.city && (
+              <li className="flex items-center gap-4 text-teal-700">
+                {data.contact.city ? (
+                  <Home className="w-6 h-6 text-teal-500" />
+                ) : (
+                  ""
+                )}{" "}
+                <span>{data.contact.city}</span>
+              </li>
+            )}
+            {data.contact.country && (
+              <li className="flex items-center gap-4 text-teal-700">
+                {data.contact.country ? (
+                  <Flag className="w-6 h-6 text-teal-500" />
+                ) : (
+                  ""
+                )}
+                <span>{data.contact.country}</span>
+              </li>
+            )}
           </ul>
         </div>
       </div>
