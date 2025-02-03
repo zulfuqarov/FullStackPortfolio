@@ -11,7 +11,7 @@ const Home = ({ data }) => {
   return (
     <div
       id="Home"
-      className="flex min-h-screen w-full items-center justify-center bg-gray-100"
+      className="flex min-h-screen w-full items-center justify-center "
     >
       <div className="flex flex-col items-center justify-center gap-6 p-4 text-center">
         <img
