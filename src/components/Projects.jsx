@@ -7,6 +7,9 @@ const Projects = ({ data }) => {
       className="min-h-screen w-full flex flex-col items-center justify-center gap-20 p-10 md:p-16 "
     >
       <h1 className="text-center text-5xl font-light">Projects</h1>
+      <p className="text-gray-500 text-center italic">
+        {data.projects.length > 0 ? "" : "You have not added any projects yet."}
+      </p>
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5 w-full">
         {data.projects &&
           data.projects.map((prj, index) => (

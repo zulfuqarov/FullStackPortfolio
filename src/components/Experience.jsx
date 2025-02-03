@@ -7,6 +7,11 @@ const Experience = ({ data }) => {
       className="flex min-h-screen w-full flex-col items-center justify-center gap-20 p-14 md:p-20 "
     >
       <h1 className="text-center text-5xl font-light">Experience</h1>
+      <p className="text-gray-500 text-center italic">
+        {data.experience.length > 0
+          ? ""
+          : "You have not added any experience yet."}
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 w-full">
         {data.experience &&
           data.experience.map((exp, index) => (

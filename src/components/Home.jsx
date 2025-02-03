@@ -15,7 +15,11 @@ const Home = ({ data }) => {
     >
       <div className="flex flex-col items-center justify-center gap-6 p-4 text-center">
         <img
-          src={`${data.img}`}
+          src={`${
+            data.img
+              ? data.img
+              : "https://i.pinimg.com/originals/1f/28/c6/1f28c68d2c35f389966b5a363b992d06.png"
+          }`}
           alt="Profile"
           className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 lg:w-56 lg:h-56 rounded-full shadow-lg object-cover"
         />
